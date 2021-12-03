@@ -27,13 +27,13 @@ class CommandArray
         return $have;
     }
 
-    public function getOrElse(array $ids, Closure $action = null): mixed
+    public function getOrElse(array $ids, string $data, Closure $action = null): mixed
     {
         foreach ($ids as $id) {
             if ($this->haveCommand($id)) {
-                array_map(function (CommandBase $cmd) use ($id, &$action) {
+                array_map(function (CommandBase $cmd) use ($id, &$action, $data) {
                     if ($cmd->getId() === $id) {
-                        $action .= PHP_EOL . $cmd->invokeOrElse();
+                        $action .= $cmd->invokeOrElse(null, [$data]);
                     }
                 }, $this->commands);
             }
@@ -43,7 +43,7 @@ class CommandArray
 
     /**
      * Get the value of commands
-     */ 
+     */
     public function getCommands()
     {
         return $this->commands;

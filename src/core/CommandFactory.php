@@ -56,21 +56,25 @@ class CommandFactory extends CommandArray
 
     public function invoke(string $id, Closure $action = null, array $data = []): mixed
     {
-        array_map(function (CommandBase $cmd) use ($id, &$action, $data) {
+        $out = '';
+
+        array_map(function (CommandBase $cmd) use ($id, &$out, $action, $data) {
             if ($cmd->getId() === $id) {
                 if ($cmd instanceof CommandExtra) {
-                    $action = $cmd->invokeOrElse($action, [array_shift($data)]);
+                    $out = $cmd->invokeOrElse(null, [$data[0] ?? '']);
 
-                    if (!empty($data)) {
-                        $action .= $cmd->extras->getOrElse($data, null, $data ?? []);
+                    if (count($data) > 0) {
+                        foreach ($data as $arg) {
+                            $out .= $cmd->extras->getOrElse([$arg], $data[0]);
+                        }
                     }
                 } else {
-                    $action = $cmd->invokeOrElse($action, $data);
+                    $out = $cmd->invokeOrElse($action, $data);
                 }
             }
         }, $this->commands);
 
-        return $action;
+        return $out;
     }
 
     public function run(array $args)

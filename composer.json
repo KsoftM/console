@@ -1,0 +1,26 @@
+{
+    "name": "ksoftm/console",
+    "description": "command line interface for php in development.",
+    "type": "library",
+    "require": {
+        "php": "^8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "ksoftm\\console\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ksoftm\\console\\test\\": "test/"
+        }
+    },
+    "authors": [
+        {
+            "name": "KsoftM",
+            "email": "ksoftmanagement@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

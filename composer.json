@@ -22,6 +22,6 @@
             "email": "ksoftmanagement@gmail.com"
         }
     ],
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "version": "0.1.1"
 }

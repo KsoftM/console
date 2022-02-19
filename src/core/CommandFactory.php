@@ -1,6 +1,6 @@
 <?php
 
-namespace ksoftm\console\core;
+namespace KsoftM\console\core;
 
 use Closure;
 

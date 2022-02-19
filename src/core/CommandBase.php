@@ -1,27 +1,30 @@
 <?php
 
-namespace ksoftm\console\core;
+namespace KsoftM\console\core;
 
 use Closure;
 
 abstract class CommandBase
 {
     /** @var string $id command identity no. */
-    private string $id;
+    protected string $id;
+
+    /** @var string $title title of the command. */
+    protected string $title;
 
     /** @var string $description description about the cmd. */
-    private string $description;
+    protected string $description;
 
     /** @var string $format cmd format. */
-    private string $format;
+    protected string $format;
 
     /** @var Closure $action action of the cmd. */
-    private Closure $action;
+    protected Closure $action;
 
     /**
      * Class constructor.
      */
-    public function __construct(string $id, string $description, string $format, Closure $action)
+    public function __construct(string $id, string $title, string $description, string $format, Closure $action)
     {
         $this->id = $id;
         $this->description = $description;

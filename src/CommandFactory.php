@@ -32,17 +32,20 @@ class CommandFactory extends CommandArray
                 if (!$cmd instanceof CommandBase) continue;
                 $len = strlen($cmd->getDescription()) + 2;
                 $data = ConsoleColorInfo::new(ucfirst(strtolower($cmd->getTitle()) . ':'))
-                    ->textColor(ConsoleColorInfo::TEXT_COLOR_YELLOW)
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_LIGHT_BLUE)
                     ->echo()
                     ->space()
+                    ->new(sprintf("  % -15s", 'Description'))
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_ORANGE)
+                    ->echo()
                     ->new(sprintf("% ${len}s", ucfirst(strtolower($cmd->getDescription()))))
                     ->echo()
                     ->space();
 
                 $len = strlen($cmd->getFormat()) + 2;
                 $data
-                    ->new(sprintf("% 9s", 'Command'))
-                    ->textColor(ConsoleColorInfo::TEXT_COLOR_GREEN)
+                    ->new(sprintf("  % -15s", 'Command'))
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_ORANGE)
                     ->echo()
 
                     ->new(sprintf("% ${len}s", $cmd->getFormat()))
@@ -55,7 +58,7 @@ class CommandFactory extends CommandArray
                 $extra = $cmd->extras->getCommands();
 
                 $data->new("  COMMANDS")
-                    ->textColor(ConsoleColorInfo::TEXT_COLOR_YELLOW)
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_ORANGE)
                     ->echo()
                     ->space();
 
@@ -68,7 +71,7 @@ class CommandFactory extends CommandArray
                         ->new(sprintf("%' +${len}s", $extra->getId()))
                         ->textColor(ConsoleColorInfo::TEXT_COLOR_GREEN)
                         ->echo();
-                    $len = strlen($extra->getDescription()) + 4;
+                    $len = strlen($extra->getDescription()) + 13;
 
                     $data
                         ->new(sprintf("%' +${len}s", ucfirst(strtolower($extra->getDescription()))))

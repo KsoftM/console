@@ -57,7 +57,7 @@ class CommandFactory extends CommandArray
 
                 $extra = $cmd->extras->getCommands();
 
-                $data->new("  COMMANDS")
+                $data->new("  Options")
                     ->textColor(ConsoleColorInfo::TEXT_COLOR_ORANGE)
                     ->echo()
                     ->space();

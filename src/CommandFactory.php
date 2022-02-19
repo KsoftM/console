@@ -79,7 +79,7 @@ class CommandFactory extends CommandArray
             }
         };
 
-        $help = Command::new('-h', 'Helper', 'List the Functions of ', '-h', $action);
+        $help = Command::new('-h', 'Help', 'List the Functions of ', '-h', $action);
         $this->register($help);
     }
 
@@ -110,7 +110,7 @@ class CommandFactory extends CommandArray
     {
         sort($this->commands);
         $action = 'Invalid Command!';
-        $cmd = array_shift($args);
+        $cmd = array_shift($args) ?? "-h";
 
         echo PHP_EOL;
 

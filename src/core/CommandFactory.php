@@ -24,33 +24,59 @@ class CommandFactory extends CommandArray
 
     public function registerHelp(): void
     {
-        $action = function () use (&$data) {
-            $data = [];
-            array_map(function (CommandBase $cmd) use (&$data) {
-                $data[] = sprintf(
-                    "%s COMMAND\n--------------------------------------\ncommand - '%s'\ndescription - %s",
-                    strtoupper($cmd->getId()),
-                    $cmd->getFormat(),
-                    ucfirst($cmd->getDescription())
-                );
+        $action = function () {
+            foreach ($this->commands as $cmd) {
+                if (!$cmd instanceof CommandBase) continue;
+                $len = strlen($cmd->getDescription()) + 2;
+                $data = ConsoleColorInfo::new(ucfirst(strtolower($cmd->getTitle()) . ':'))
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_YELLOW)
+                    ->echo()
+                    ->space()
+                    ->new(sprintf("% ${len}s", ucfirst(strtolower($cmd->getDescription()))))
+                    ->echo()
+                    ->space();
 
-                if ($cmd instanceof CommandExtra) {
-                    $data[] = "\nOPTIONS FOR " . strtoupper($cmd->getId());
-                    array_map(function (CommandBase $cmd) use (&$data) {
-                        $data[] = sprintf(
-                            "'%s' - %s",
-                            ucfirst($cmd->getId()),
-                            ucfirst($cmd->getDescription())
-                        );
-                    }, $cmd->extras->getCommands());
+                $len = strlen($cmd->getFormat()) + 2;
+                $data
+                    ->new(sprintf("% 9s", 'Command'))
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_GREEN)
+                    ->echo()
+
+                    ->new(sprintf("% ${len}s", $cmd->getFormat()))
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_GREEN)
+                    ->echo()
+                    ->space(2);
+
+                if (!$cmd instanceof CommandExtra) continue;
+
+                $extra = $cmd->extras->getCommands();
+
+                $data->new("  COMMANDS")
+                    ->textColor(ConsoleColorInfo::TEXT_COLOR_YELLOW)
+                    ->echo()
+                    ->space();
+
+                foreach ($extra as $extra) {
+                    if (!$extra instanceof CommandBase) continue;
+
+                    $len = strlen($extra->getId()) + 4;
+
+                    $data
+                        ->new(sprintf("%' +${len}s", $extra->getId()))
+                        ->textColor(ConsoleColorInfo::TEXT_COLOR_GREEN)
+                        ->echo();
+                    $len = strlen($extra->getDescription()) + 4;
+
+                    $data
+                        ->new(sprintf("%' +${len}s", ucfirst(strtolower($extra->getDescription()))))
+                        ->echo()
+                        ->space();
                 }
-                $data[] = PHP_EOL;
-            }, $this->commands);
-
-            return is_array($data) ? trim(implode(PHP_EOL, $data)) : 'No Functions!';
+                $data->space();
+            }
         };
 
-        $help = Command::new('-h', 'List the Functions of ', '-h', $action);
+        $help = Command::new('-h', 'Helper', 'List the Functions of ', '-h', $action);
         $this->register($help);
     }
 
@@ -83,13 +109,12 @@ class CommandFactory extends CommandArray
         $action = 'Invalid Command!';
         $cmd = array_shift($args);
 
+        echo PHP_EOL;
+
         if ($this->haveCommand($cmd)) {
             $action = $this->invoke($cmd, fn () => $action, $args);
-            // $action .= PHP_EOL . $cmd->extras->run($data);
         }
 
-        echo PHP_EOL;
         echo $action;
-        echo PHP_EOL;
     }
 }

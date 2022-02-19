@@ -27,6 +27,7 @@ abstract class CommandBase
     public function __construct(string $id, string $title, string $description, string $format, Closure $action)
     {
         $this->id = $id;
+        $this->title = $title;
         $this->description = $description;
         $this->format = $format;
         $this->action = $action;
@@ -93,7 +94,7 @@ abstract class CommandBase
     }
 
     /**
-     * invoke the action
+     * invoke the action or else invoke another one
      */
     public function invokeOrElse(Closure $action = null, array $data = []): mixed
     {
@@ -116,6 +117,26 @@ abstract class CommandBase
     protected function setAction($action)
     {
         $this->action = $action;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set the value of title
+     *
+     * @return  self
+     */
+    protected function setTitle($title)
+    {
+        $this->title = $title;
 
         return $this;
     }

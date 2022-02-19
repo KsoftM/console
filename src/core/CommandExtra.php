@@ -12,9 +12,10 @@ class CommandExtra extends CommandBase
     /**
      * Class constructor.
      */
-    public function __construct($id, $description, $format, $action)
+    public function __construct($id, $title, $description, $format, $action)
     {
         parent::setId($id)
+            ->setTitle($title)
             ->setDescription($description)
             ->setFormat($format)
             ->setAction($action);
@@ -23,10 +24,11 @@ class CommandExtra extends CommandBase
 
     public static function new(
         string $id,
+        string $title,
         string $description,
         string $format,
         Closure $action
     ) {
-        return new CommandExtra($id, $description, $format, $action);
+        return new CommandExtra($id, $title, $description, $format, $action);
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-namespace KsoftM\console\core;
-
-use KsoftM\Contract\ConsoleColorInfoInterface;
+namespace KsoftM\Console\Core;
 
 class ConsoleColorInfo
 {

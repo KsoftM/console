@@ -1,8 +1,10 @@
 <?php
 
-namespace KsoftM\console\core;
+namespace KsoftM\Console;
 
 use Closure;
+use KsoftM\Console\Core\CommandArray;
+use KsoftM\Console\Core\CommandBase;
 
 class CommandExtra extends CommandBase
 {

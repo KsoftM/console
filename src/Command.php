@@ -1,8 +1,9 @@
 <?php
 
-namespace KsoftM\console\core;
+namespace KsoftM\Console;
 
 use Closure;
+use KsoftM\Console\Core\CommandBase;
 
 class Command extends CommandBase
 {

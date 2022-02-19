@@ -1,8 +1,11 @@
 <?php
 
-namespace KsoftM\console\core;
+namespace KsoftM\Console;
 
 use Closure;
+use KsoftM\Console\Core\CommandArray;
+use KsoftM\Console\Core\CommandBase;
+use KsoftM\Console\Core\ConsoleColorInfo;
 
 class CommandFactory extends CommandArray
 {

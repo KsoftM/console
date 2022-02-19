@@ -8,12 +8,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "KsoftM\\console\\": "src/"
+            "KsoftM\\Console\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "KsoftM\\console\\test\\": "test/"
+            "KsoftM\\Console\\Test\\": "test/"
         }
     },
     "authors": [
@@ -23,5 +23,5 @@
         }
     ],
   "minimum-stability": "dev",
-  "version": "0.1.5"
+  "version": "0.1.6"
 }

@@ -10,15 +10,10 @@ class CommandArray
     /** @var array $commands collection fo commands. */
     public array $commands = [];
 
-    public function register(CommandBase $command): void
-    {
-        $this->commands[] = $command;
-    }
-
-    public function registerArray(...$commands): void
+    public function register(...$commands): void
     {
         array_map(function (CommandBase $cmd) {
-            $this->register($cmd);
+            $this->commands[] = $cmd;
         }, $commands);
     }
 

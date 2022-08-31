@@ -15,6 +15,13 @@ class CommandArray
         $this->commands[] = $command;
     }
 
+    public function registerArray(...$commands): void
+    {
+        array_map(function (CommandBase $cmd) {
+            $this->register($cmd);
+        }, $commands);
+    }
+
     public function haveCommand(string $id): bool
     {
         $have = false;
@@ -42,7 +49,7 @@ class CommandArray
     }
 
     /**
-     * Get the value of commands
+     * Get all commands from array
      */
     public function getCommands()
     {
